@@ -1,0 +1,56 @@
+.section
+  &__header
+    background-color: $primary
+    height: 82px
+    display: flex
+    align-items: center
+
+.header
+  &-nav
+    +flex
+
+    &__list
+      display: flex
+      justify-content: space-between
+      list-style: none
+      max-width: 225px
+      width: 100%
+
+    &__item
+      cursor: pointer
+  &-left
+    +flex
+    width: 100%
+    max-width: 830px
+
+  &-search
+    position: relative
+
+    &__button
+      position: absolute
+      right: -3px
+      top: 0
+      bottom: 0
+      width: 96px
+      height: 100%
+      background-color: $button-header
+      color: $white
+      font-size: 21px
+      border: none
+      border-radius: 0 4px 4px 0
+
+    &__input
+      width: 430px
+      height: 43px
+      border: 2px solid $white
+      border-radius: 4px 0 0 4px
+      padding-left: 10px
+
+      &::placeholder
+        color: #848484
+
+  &-menu
+    +flex(center)
+
+    & > span
+      margin-right: 10px
