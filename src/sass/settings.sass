@@ -25,12 +25,28 @@ button:hover, a:hover, input[type="submit"]
     font-size: 36px
     text-align: center
 
+    &__search
+      margin-bottom: 50px
+
+    &__advantages
+      margin-bottom: 70px
+
   &__goods
     color: $black
     padding-top: 80px
 
   &__search
+    margin-top: 90px
     color: $black
+    position: relative
+    z-index: 1
+
+  &__advantages
+    margin-top: -80px
+    padding-bottom: 270px
+    background-color: #6617cb
+    background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%)
+    clip-path: polygon(0 0, 100% 29%, 100% 100%, 0% 100%)
 
 .c-p:hover
   cursor: pointer
