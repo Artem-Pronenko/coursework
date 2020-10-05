@@ -1,0 +1,34 @@
+.goods
+  &-slider
+    display: flex
+    align-items: center
+    flex-direction: column
+
+    &__dots
+      margin-top: 15px
+
+    &__dot
+      margin-right: 9px
+
+  &-slide
+    text-align: center
+
+    &__title
+      margin-bottom: -70px
+      position: relative
+      z-index: 1
+
+    & > img
+      width: 100%
+      height: 620px
+      overflow: hidden
+      object-fit: contain
+.slider
+  &-dot
+    display: inline-block
+    width: 16px
+    height: 5px
+    background-color: #e68cff
+    cursor: pointer
+    &_active
+      background-color: $primary
