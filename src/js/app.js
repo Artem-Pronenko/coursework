@@ -1,5 +1,6 @@
 import '../sass/style.sass'
 import {Slider} from './module/slider'
+import {menu} from './module/headerMenu';
 
 const slider = new Slider(
   {
@@ -15,3 +16,5 @@ const slider = new Slider(
 )
 slider.start()
 slider.listener()
+
+menu()

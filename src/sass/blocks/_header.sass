@@ -18,6 +18,7 @@
 
     &__item
       cursor: pointer
+
   &-left
     +flex
     width: 100%
@@ -51,6 +52,62 @@
 
   &-menu
     +flex(center)
+    cursor: pointer
+
+    &__main
+      position: relative
+
+.menu
+  display: flex
+  justify-content: flex-start
+  position: absolute
+  left: 0
+  bottom: -127px
+  z-index: 3
+  background-color: transparent
+  border: 1px solid $primary
+  min-width: 500px
+  min-height: 100px
+  color: $black
+  padding: 10px 10px
+  font-size: 14px
+  font-weight: 600
+  border-top: none
+  opacity: 0
+  visibility: hidden
+  transition: opacity 0.2s
+
+  &-button
+    display: flex
+    align-items: center
+    user-select: none
+
+    &:hover &_img
+      transform: rotateX(48deg)
 
     & > span
       margin-right: 10px
+
+  &-list
+    list-style: none
+    padding: 0
+    margin: 0
+
+    &__block
+      margin-right: 10px
+      padding-right: 6px
+      border-right: 1px solid lighten($primary, 50%)
+
+    &__item
+      margin-top: 5px
+
+      &:hover
+        text-decoration: underline
+
+  &-item
+    & > a
+      font-weight: 100
+      font-size: 13px
+      text-decoration: none
+      color: $black
+
