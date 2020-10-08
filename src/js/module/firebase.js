@@ -1,5 +1,6 @@
 import * as firebase from "firebase/app"
 import "firebase/firestore"
+import {RenderModal} from './renderModal';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBmrFlz3jYKxOModg8V5CQu_NmfO18tUn0",
@@ -36,34 +37,40 @@ export const func = () => {
 }
 
 
-const getGoods = (collection = 'goods') => {
-  db.collection('goods')
+const getGoods = (goods) => {
+  db.collection(`goods/phone/phone`).orderBy('price', 'desc')
     .get()
     .then(querySnapshot => {
-      outDoc(querySnapshot)
+      outDoc(querySnapshot, goods)
+    })
+    .catch(err => {
+      console.log(err)
     })
 
 }
 
-const out = document.querySelector('.out')
-const outDoc = (data) => {
-  data.forEach(doc => {
-    renderCard(doc.data())
+const render = new RenderModal()
+
+const outDoc = async (data, goods) => {
+  let dataGoods = []
+  await data.forEach(doc => {
+    const data = doc.data()
+    for (let i = 0; i < data.name.length; i++) {
+      if (data.name[i] === goods) {
+        dataGoods.push(data)
+      }
+    }
+
   })
-
+  render.filter(dataGoods)
 }
 
-const renderCard = ({name, price, color}) => {
-  const card = document.createElement('div')
-  card.innerHTML = `
-    <h3>${name}</h3><br>
-    <span>цена: ${price}</span><br>
-    <span>цвет: ${color}</span>
-  `
-  out.append(card)
-}
 
-document.addEventListener('click', () => {
-  getGoods()
+const btn = document.getElementById('main-search-button')
+
+btn.addEventListener('click', e => {
+  e.preventDefault()
+  const searchInputValue = document.getElementById('main-search').value
+  getGoods(searchInputValue)
 
 })
