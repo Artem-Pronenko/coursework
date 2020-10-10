@@ -6,6 +6,9 @@ body
   color: $white
   font-size: 16px
 
+img
+  max-width: 100%
+
 input, button
   outline: none
   border: none
@@ -48,6 +51,8 @@ button:hover, a:hover, input[type="submit"]
     background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%)
     clip-path: polygon(0 0, 100% 29%, 100% 100%, 0% 100%)
 
+.search-button[disabled]
+  background-color: lighten($primary, 50%)
 
 .b-fs
   font-size: 1.1em

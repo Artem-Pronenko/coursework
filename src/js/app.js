@@ -9,9 +9,9 @@ const slider = new Slider(
     dotsWrapClass: 'goods-slider__dots'
   },
   {
-    autoplay: {
-      interval: 3000
-    },
+    // autoplay: {
+    //   interval: 3000
+    // },
     startSlide: 2
   }
 )
@@ -19,6 +19,10 @@ slider.start()
 slider.listener()
 
 menu()
+/*
+ transform: scale(2);
+ margin-left: 250px;
+*/
 
 //document.addEventListener('click', func)
 /*
