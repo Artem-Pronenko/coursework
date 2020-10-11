@@ -1,12 +1,15 @@
 export class RenderModal {
 
   filter(props) {
-    const data = props
-    const minPrice = data.reverse()[0]
-    const maxPrice = data[data.length - 1].price
-    document.body.insertAdjacentHTML('beforeend', this.render(data, minPrice, maxPrice))
-    this.listener()
-    console.log(data)
+    if (props.length) {
+      const minPrice = props.reverse()[0]
+      const maxPrice = props[props.length - 1].price
+      document.body.insertAdjacentHTML('beforeend', this.render(props, minPrice, maxPrice))
+      this.listener()
+    } else {
+      document.body.insertAdjacentHTML('beforeend', this.renderError())
+      this.listener()
+    }
   }
 
   destroy() {
@@ -22,6 +25,18 @@ export class RenderModal {
     }
     shopsWrap.append(...shopsReverse)
 
+  }
+
+  renderError() {
+    return `
+      <article class="article goods-bg">
+      <button class="goods-close">&#10006;</button>
+      <div class="goods-container">
+        <h3 class="goods-title"><span>Упс. Такого товара нет!</span></h3>
+        <hr>
+        <h4>Убедитесь в правильности введенных данных!</h4>
+    </article>
+    `
   }
 
   render(data, minPrice, maxPrice) {
@@ -120,8 +135,8 @@ export class RenderModal {
 
   listener() {
     const goodsClose = document.querySelector('.goods-close')
-    const sort = document.getElementById('sort')
-    sort.addEventListener('change', this.sort)
+    document.getElementById('sort')
+    && document.getElementById('sort').addEventListener('change', this.sort)
     goodsClose.addEventListener('click', this.destroy)
   }
 }

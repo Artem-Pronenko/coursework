@@ -17,21 +17,26 @@ let db = firebase.firestore()
 
 
 export const func = () => {
-  db.collection('goods')
-    .doc(`Google Pixel 5 #${Math.floor(Math.random() * 8888444)}`)
+  db.collection('goo').doc()
     .set({
-        fullName: 'Мобильный телефон Google Pixel 2 Black',
-        mainName: 'Google Pixel 2',
-        model: '3',
-        name: ['Pixel', 'Google Pixel 2', 'Google Pixel', 'Pixel 2'],
-        price: 20343,
-        shop: 'rakozetka',
-        specifications: {
-          battery: '3520 мАч',
-          display: '6 ", 2880х1440 (18:9), 538 ppi',
-          info: 'Модельные отличия: 64 ГБ или 128 ГБ встроенной памяти. Существует две модификации  (Pixel 2/XL): Pixel 2 это 5" AMOLED дисплей, 1920х1080 пикс, аккум 2700 мАч, у Pixel 2 XL  это 6" P-OLED дисплей, 2880х1440 пикс, аккум 3520 мАч. Нет 3.5 мм разъема.',
-          ram: '64 ГБ, ОЗУ 4 ГБ'
-        }
+        props: {
+          fullName: "Мобильный телефон Google Pixel 3 Just Black",
+          img: {
+            back: "https://i2.rozetka.ua/goods/10373221/69182036_images_10373221646.jpg",
+            main: "https://i1.rozetka.ua/goods/10373219/69182036_images_10373219342.png"
+          },
+          mainName: "Google Pixel 3",
+          name: ["Pixel", "Google Pixel", "Google Pixel 3", "Pixel 3"],
+          price: 21585,
+          shop: "rakozetka",
+          specifications: {
+            battery: "2915 мАч",
+            display: '5,5" • OLED • 1080x2160',
+            info: 'Google Pixel 3 – флагман 2018 года от компании Google, соединивший в себе программное и аппаратное виденье того, каким должен быть смартфон. Модель получила последнюю версию ОС Android 9 Pie, а также будет полностью поддерживаться и получать все обновления на протяжении 3-х лет.',
+            ram: "64 ГБ, ОЗУ 4 ГБ",
+          },
+          type: "phone"
+        },
       }
     ).catch(err => {
     console.error("Error adding document: ", err);
@@ -60,7 +65,7 @@ export const func = () => {
 //document.addEventListener('click', func)
 
 const getGoods = (goods) => {
-  db.collection(`goods`).orderBy('price', 'desc')
+  db.collection(`goo`).orderBy('props.price', 'desc')
     .get()
     .then(querySnapshot => {
       btn.disabled = false
@@ -78,9 +83,9 @@ const outDoc = async (data, goods) => {
   let dataGoods = []
   await data.forEach(doc => {
     const data = doc.data()
-    for (let i = 0; i < data.name.length; i++) {
-      if (data.name[i].toLowerCase() === goods) {
-        dataGoods.push(data)
+    for (let i = 0; i < data.props.name.length; i++) {
+      if (data.props.name[i].toLowerCase() === goods) {
+        dataGoods.push(data.props)
       }
     }
 
