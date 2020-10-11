@@ -1,13 +1,15 @@
 import '../sass/style.sass'
-import {Slider} from './module/slider'
+import {Slider} from './module/Slider'
 import {menu} from './module/headerMenu'
 import './module/firebase'
 
 const slider = new Slider(
+  // 2 обязательных параметра
   {
     sliderClass: 'goods-slide',
     dotsWrapClass: 'goods-slider__dots'
   },
+  // настройки по желанию
   {
     // autoplay: {
     //   interval: 3000

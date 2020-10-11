@@ -1,9 +1,9 @@
 export class RenderModal {
 
   filter(props) {
-    if (props.length) {
-      const minPrice = props.reverse()[0]
-      const maxPrice = props[props.length - 1].price
+    if (props.length) { // проверка на ответ от БД
+      const minPrice = props.reverse()[0] // массив товара по самой низкой цене
+      const maxPrice = props[props.length - 1].price // максимальная цена товара
       document.body.insertAdjacentHTML('beforeend', this.render(props, minPrice, maxPrice))
       this.listener()
     } else {
@@ -11,11 +11,11 @@ export class RenderModal {
       this.listener()
     }
   }
-
+  // удаление модального окна с товарами
   destroy() {
     document.querySelector('.article').remove()
   }
-
+  // сортировка карточек товара
   sort() {
     const shopsWrap = document.querySelector('.shops-wrapper')
     const shopsReverse = [...shopsWrap.querySelectorAll('.shops ')].reverse()
@@ -26,7 +26,7 @@ export class RenderModal {
     shopsWrap.append(...shopsReverse)
 
   }
-
+  // рендер смс ошибки если товар не найден
   renderError() {
     return `
       <article class="article goods-bg">
@@ -38,7 +38,7 @@ export class RenderModal {
     </article>
     `
   }
-
+  // рендер мадального окна с товарами
   render(data, minPrice, maxPrice) {
     const {mainName, fullName, price, specifications} = minPrice
     const {display, ram, battery, info} = specifications
@@ -101,7 +101,7 @@ export class RenderModal {
     
     <div class="shops-wrapper">
       ${data.map(item => 
-
+      /*рендер всех карточек товара из разных магазинов*/
        `<div class="shops shops_mb">
         <div class="shops-logo">
           <img src="img/shop-logo.png" alt="image: shop logo">
@@ -132,7 +132,7 @@ export class RenderModal {
 </article>
     `
   }
-
+  // слушатель событий ? запуск методов
   listener() {
     const goodsClose = document.querySelector('.goods-close')
     document.getElementById('sort')

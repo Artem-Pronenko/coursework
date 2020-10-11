@@ -15,7 +15,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 let db = firebase.firestore()
 
-
+// функция добавления товаров в БД
 export const func = () => {
   db.collection('goo').doc()
     .set({
@@ -44,26 +44,9 @@ export const func = () => {
 
 }
 
-/*
-{
-      fullName: 'Мобильный телефон Google Pixel 3 Just Black',
-      mainName: 'Google Pixel 3',
-      model: '3',
-      name: ['Pixel', 'Google Pixel 3', 'Google Pixel', 'Pixel 3'],
-      price: 13585,
-      shop: 'rakozetka',
-      specifications: {
-        battery: '2915 мАч',
-        display: '5,5" • OLED • 1080x2160',
-        info: 'Google Pixel 3 – флагман 2018 года от компании Google, соединивший в себе программное и аппаратное виденье того, каким должен быть смартфон. Модель получила последнюю версию ОС Android 9 Pie, а также будет полностью поддерживаться и получать все обновления на протяжении 3-х лет.',
-        ram: '64 ГБ, ОЗУ 4 ГБ'
-      }
-
-    }
-*/
 
 //document.addEventListener('click', func)
-
+// полчение товаров и сортировка по цене
 const getGoods = (goods) => {
   db.collection(`goo`).orderBy('props.price', 'desc')
     .get()

@@ -3,19 +3,19 @@ export class Slider {
     {sliderClass, dotsWrapClass},
     {autoplay, startSlide} = false
   ) {
-
+    // вывод ошибки если обвертка слайдера или обвертка для пагинации не была передана
     if (!sliderClass || !dotsWrapClass) throw Error('Parameters passed incorrectly')
 
     this.interval = 0
     this.slide = document.querySelectorAll(`.${sliderClass}`)
     this.dotsWrap = document.querySelector(`.${dotsWrapClass}`)
-    this.currentSlide = startSlide - 1 || 0
+    this.currentSlide = startSlide - 1 || 0 // стартовый слайд
     this.autoplay = autoplay
     if (!autoplay) return
-    this.autoplayInterval = autoplay.interval || 2000
+    this.autoplayInterval = autoplay.interval || 2000 // интервал смены слайдов
 
   }
-
+  // добавление пагинации
   addDots() {
     for (let i = 0; i < this.slide.length; i++) {
       const dot = document.createElement('span')
@@ -24,7 +24,7 @@ export class Slider {
       this.dots = document.querySelectorAll(`.goods-slider__dot`)
     }
   }
-
+  // запуск слайдера
   start(_dot = true) {
     _dot && this.addDots() // *костыль
 
@@ -54,7 +54,7 @@ export class Slider {
     this.nextSlide(this.slide, this.currentSlide)
     this.prevSlide(this.dots, this.currentSlide, 'slider-dot_active')
   }
-
+  // переключения слайдов / пагинация
   dotTab({target}) {
     this.prevSlide(this.slide, this.currentSlide)
     this.nextSlide(this.dots, this.currentSlide, 'slider-dot_active')
@@ -77,7 +77,7 @@ export class Slider {
 
 }
 
-//
+// слайдер в функциональном стиле
 // export const slider = (autoplayInterval = 2000) => {
 //   const slide = document.querySelectorAll('.goods-slide')
 //   const dotsWrap = document.querySelector('.goods-slider__dots')
