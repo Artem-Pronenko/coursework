@@ -9,9 +9,10 @@
 ```
 git clone https://github.com/Artem-Pronenko/coursework.git
 ```
+###### в папке проекта:
 #### Установите зависимости
 ```
-npm start
+npm i
 ```
 #### Запуск в режиме разработки
 ```
