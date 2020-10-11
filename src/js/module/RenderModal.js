@@ -13,6 +13,17 @@ export class RenderModal {
     document.querySelector('.article').remove()
   }
 
+  sort() {
+    const shopsWrap = document.querySelector('.shops-wrapper')
+    const shopsReverse = [...shopsWrap.querySelectorAll('.shops ')].reverse()
+    const shops = [...shopsWrap.querySelectorAll('.shops ')]
+    for (let i = 0; i < shops.length; i++) {
+      shops[i].remove()
+    }
+    shopsWrap.append(...shopsReverse)
+
+  }
+
   render(data, minPrice, maxPrice) {
     const {mainName, fullName, price, specifications} = minPrice
     const {display, ram, battery, info} = specifications
@@ -63,7 +74,7 @@ export class RenderModal {
         <h3 class="goods-sort__title">Магазины в вашем городе</h3>
         <label>
           Сортировать по:
-          <select>
+          <select id="sort">
             <option value="cheap">Сначала дешовые</option>
             <option value="expensive">Сначала дорогие</option>
           </select>
@@ -73,40 +84,44 @@ export class RenderModal {
     
     <hr>
     
-    ${data.map(item => {
-      return `<div class="shops shops_mb">
-      <div class="shops-logo">
-        <img src="img/shop-logo.png" alt="image: shop logo">
-      </div>
-      <div class="title-shop">${item.shop}</div>
-      <div class="shops-info-goods">
-        <h4 class="shops-info-goods__title">${item.mainName}
-          <sup class="primary b-fs">${item.price}</sup><sup>грн</sup>
-        </h4>
-        <div class="shops-info-goods-footer">
-          <div class="shops-info-rating">
-            <span class="shops-info-rating__text">Рейтинг:</span>
-            <div class="shops-info-star">
-              <img src="img/star-gold.png" alt="icon: gold star">
-              <img src="img/star-gold.png" alt="icon: gold star">
-              <img src="img/star-gold.png" alt="icon: gold star">
-              <img src="img/star-black.png" alt="icon: gold black">
-              <img src="img/star-black.png" alt="icon: gold black">
-            </div>
-          </div>
-          <button class="shops-open">В магазин</button>
+    <div class="shops-wrapper">
+      ${data.map(item => 
+
+       `<div class="shops shops_mb">
+        <div class="shops-logo">
+          <img src="img/shop-logo.png" alt="image: shop logo">
         </div>
-      </div>
-    </div>`
-    })}
+        <div class="title-shop">${item.shop}</div>
+        <div class="shops-info-goods">
+          <h4 class="shops-info-goods__title">${item.mainName}
+            <sup class="primary b-fs">${item.price}</sup><sup>грн</sup>
+          </h4>
+          <div class="shops-info-goods-footer">
+            <div class="shops-info-rating">
+              <span class="shops-info-rating__text">Рейтинг:</span>
+              <div class="shops-info-star">
+                <img src="img/star-gold.png" alt="icon: gold star">
+                <img src="img/star-gold.png" alt="icon: gold star">
+                <img src="img/star-gold.png" alt="icon: gold star">
+                <img src="img/star-black.png" alt="icon: gold black">
+                <img src="img/star-black.png" alt="icon: gold black">
+              </div>
+            </div>
+            <button class="shops-open">В магазин</button>
+          </div>
+        </div>
+      </div>`
+    ).join('')}
+    </div>
   </div>
 </article>
-    
     `
   }
 
   listener() {
     const goodsClose = document.querySelector('.goods-close')
+    const sort = document.getElementById('sort')
+    sort.addEventListener('change', this.sort)
     goodsClose.addEventListener('click', this.destroy)
   }
 }

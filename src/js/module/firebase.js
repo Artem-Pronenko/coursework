@@ -18,7 +18,7 @@ let db = firebase.firestore()
 
 export const func = () => {
   db.collection('goods')
-    .doc(`Google Pixel 2 #${Math.floor(Math.random() * 8888444)}`)
+    .doc(`Google Pixel 5 #${Math.floor(Math.random() * 8888444)}`)
     .set({
         fullName: 'Мобильный телефон Google Pixel 2 Black',
         mainName: 'Google Pixel 2',
