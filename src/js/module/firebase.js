@@ -20,25 +20,31 @@ export const func = () => {
   db.collection('goo').doc()
     .set({
         props: {
-          fullName: "Мобильный телефон Google Pixel 3 Just Black",
+          fullName: "Пиво темное Ригань 8.2%",
           img: {
-            back: "https://i2.rozetka.ua/goods/10373221/69182036_images_10373221646.jpg",
-            main: "https://i1.rozetka.ua/goods/10373219/69182036_images_10373219342.png"
+            back: "https://cdn.27.ua/799/52/aa/2445994_1.jpeg",
+            main: "https://cdn.27.ua/799/52/aa/2445994_1.jpeg"
           },
-          mainName: "Google Pixel 3",
-          name: ["Pixel", "Google Pixel", "Google Pixel 3", "Pixel 3"],
-          price: 21585,
+          mainName: "Пиво Рыгань темное",
+          name: ["Пиво", "Пивас", "Рыгань", "Темное пиво"],
+          price: 200,
           shop: "rakozetka",
           specifications: {
-            battery: "2915 мАч",
-            display: '5,5" • OLED • 1080x2160',
-            info: 'Google Pixel 3 – флагман 2018 года от компании Google, соединивший в себе программное и аппаратное виденье того, каким должен быть смартфон. Модель получила последнюю версию ОС Android 9 Pie, а также будет полностью поддерживаться и получать все обновления на протяжении 3-х лет.',
-            ram: "64 ГБ, ОЗУ 4 ГБ",
+            // battery: "2915 мАч",
+            // display: '5,5" • OLED • 1080x2160',
+            info: 'Класическое темное пиво Рыгань. Обладает очень стойким ароматом. 8.2% спирта. Разрывают твое' +
+              ' сознание на куски при каждом глотке.',
+            // ram: "",
+
           },
-          type: "phone"
+          type: "beer"
         },
       }
-    ).catch(err => {
+    )
+    .then(() => {
+      console.log('Товар добавлен')
+    })
+    .catch(err => {
     console.error("Error adding document: ", err);
   })
 
