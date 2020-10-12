@@ -46,28 +46,27 @@ export const addGoods = () => {
 
 document.getElementById('addGoods').addEventListener('click', addGoods)
 // полчение товаров и сортировка по цене
-const getGoods = (goods) => {
-  db.collection(`goo`).orderBy('props.price', 'desc')
-    .get()
-    .then(querySnapshot => {
-      btn.disabled = false
-      outDoc(querySnapshot, goods)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+const getGoods = async goods => {
+  try {
+    const res = await db.collection(`goo`)
+      .orderBy('props.price', 'desc')
+      .get()
+    outDoc(res, goods)
+  } catch (e) {
+    throw new Error(e)
+  }
 
 }
 
 const render = new RenderModal()
 
-const outDoc = async (data, goods) => {
+const outDoc = (data, goods) => {
   let dataGoods = []
-  await data.forEach(doc => {
-    const data = doc.data()
-    for (let i = 0; i < data.props.name.length; i++) {
-      if (data.props.name[i].toLowerCase() === goods) {
-        dataGoods.push(data.props)
+  data.forEach(doc => {
+    const {props} = doc.data()
+    for (let i = 0; i < props.name.length; i++) {
+      if (props.name[i].toLowerCase() === goods) {
+        dataGoods.push(props)
       }
     }
 
@@ -83,5 +82,6 @@ btn.addEventListener('click', e => {
   btn.disabled = true
   const searchInputValue = document.getElementById('main-search').value
   getGoods(searchInputValue.toLowerCase().split(' ').filter(i => i).join(' '))
+    .then(() => btn.disabled = false)
 
 })
