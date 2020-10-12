@@ -40,8 +40,7 @@ export class RenderModal {
   }
   // рендер мадального окна с товарами
   render(data, minPrice, maxPrice) {
-    const {mainName, fullName, price, specifications} = minPrice
-    const {display, ram, battery, info} = specifications
+    const {mainName, fullName, price, specifications, info} = minPrice
 
     return `
     <article class="article goods-bg">
@@ -71,9 +70,9 @@ export class RenderModal {
         </div>
         <ul class="specifications-list">
           Характеристики:
-          <li class="specifications-item">Экран: ${display}</li>
-          <li class="specifications-item">Память: ${ram}</li>
-          <li class="specifications-item">Емкость: ${battery}</li>
+          ${Object.values(specifications).map(item =>
+          `<li class="specifications-item">${item}</li>`
+          ).join('')}
         </ul>
         <div class="goods-info__description">
           <span>Описание</span>

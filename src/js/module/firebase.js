@@ -1,6 +1,6 @@
 import * as firebase from "firebase/app"
 import "firebase/firestore"
-import {RenderModal} from './RenderModal';
+import {RenderModal} from './RenderModal'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBmrFlz3jYKxOModg8V5CQu_NmfO18tUn0",
@@ -16,42 +16,35 @@ firebase.initializeApp(firebaseConfig)
 let db = firebase.firestore()
 
 // функция добавления товаров в БД
-export const func = () => {
+export const addGoods = () => {
   db.collection('goo').doc()
     .set({
         props: {
-          fullName: "Пиво темное Ригань 8.2%",
+          fullName: "Пиво Балтика 9 8.1%",
           img: {
-            back: "https://cdn.27.ua/799/52/aa/2445994_1.jpeg",
-            main: "https://cdn.27.ua/799/52/aa/2445994_1.jpeg"
+            back: "https://pivnoe-delo.info/wp-content/uploads//spetsial-no-dlya-potrebiteley-predpochitayushchikh-boleye-krepkiye-sorta-piva-byla-razrabotana-novinka-baltika-9-vishnevoye.png",
+            main: "https://pivnoe-delo.info/wp-content/uploads//spetsial-no-dlya-potrebiteley-predpochitayushchikh-boleye-krepkiye-sorta-piva-byla-razrabotana-novinka-baltika-9-vishnevoye.png"
           },
-          mainName: "Пиво Рыгань темное",
-          name: ["Пиво", "Пивас", "Рыгань", "Темное пиво"],
-          price: 200,
+          mainName: "Пиво Балтика 9",
+          name: ["Пиво", "Пивас", "Балтика", "Балтика 9"],
+          price: 250,
           shop: "rakozetka",
           specifications: {
-            // battery: "2915 мАч",
-            // display: '5,5" • OLED • 1080x2160',
-            info: 'Класическое темное пиво Рыгань. Обладает очень стойким ароматом. 8.2% спирта. Разрывают твое' +
-              ' сознание на куски при каждом глотке.',
-            // ram: "",
-
+            s1: 'Сорт: Ячменное',
+            s2: 'Спирт 8.1%',
           },
+          info: 'Класическое порошковое пиво Балтика. Обладает нереальным вкусом. 8.1% спирта.',
           type: "beer"
         },
       }
     )
-    .then(() => {
-      console.log('Товар добавлен')
-    })
-    .catch(err => {
-    console.error("Error adding document: ", err);
-  })
+    .then(() => console.log('Товар добавлен'))
+    .catch(err => console.error("Error adding document: ", err))
 
 }
 
 
-//document.addEventListener('click', func)
+document.getElementById('addGoods').addEventListener('click', addGoods)
 // полчение товаров и сортировка по цене
 const getGoods = (goods) => {
   db.collection(`goo`).orderBy('props.price', 'desc')
