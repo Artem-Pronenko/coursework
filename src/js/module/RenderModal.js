@@ -13,7 +13,7 @@ export class RenderModal {
   }
   // удаление модального окна с товарами
   destroy() {
-    document.querySelector('.article').remove()
+    document.getElementById('search-goods-modal').remove()
   }
   // сортировка карточек товара
   sort() {
@@ -43,10 +43,10 @@ export class RenderModal {
     const {mainName, fullName, price, specifications, info} = minPrice
 
     return `
-    <article class="article goods-bg">
-  <button class="goods-close">&#10006;</button>
-  <div class="goods-container">
-    <h3 class="goods-title"><span>${mainName}</span></h3>
+    <article class="article goods-bg article-bg" id="search-goods-modal">
+  <button class="goods-close article-close">&#10006;</button>
+  <div class="article-container">
+    <h3 class="article-title"><span>${mainName}</span></h3>
     <div class="goods-card">
       <div class="goods-card__img">
         <img src="${minPrice.img.main}" alt="image: phone">
