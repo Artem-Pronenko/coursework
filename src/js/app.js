@@ -2,6 +2,7 @@ import '../sass/style.sass'
 import {Slider} from './module/Slider'
 import {menu} from './module/headerMenu'
 import './module/firebase'
+import {authModalShow} from './module/auth'
 
 const slider = new Slider(
   // 2 обязательных параметра
@@ -21,6 +22,8 @@ slider.start()
 slider.listener()
 
 menu()
+authModalShow()
+
 /*
  transform: scale(2);
  margin-left: 250px;

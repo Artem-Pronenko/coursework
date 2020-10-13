@@ -1,0 +1,182 @@
+.auth-modal-wrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background: rgba(172 0 201 / 0.4);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+.auth-modal-wrapper.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.auth-modal {
+  width: 600px;
+  height: 320px;
+  display: block;
+  transform: translateX(-50%);
+  position: relative;
+  top: 50%;
+  left: 50%;
+  background: #fff;
+  opacity: 0;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+
+  &-wrapper.open .auth-modal {
+    margin-top: -200px;
+    opacity: 1;
+  }
+
+  &-head {
+    width: 100%;
+    padding: 12px 30px;
+    overflow: hidden;
+    background: #ac00db;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-btn-close {
+    font-size: 28px;
+    display: block;
+    float: right;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &-content {
+    padding: 20px 0;
+    @include flex(center);
+    flex-direction: column;
+    color: $black;
+  }
+
+  &-title {
+    font-size: 22px;
+    margin: 0;
+  }
+}
+
+
+.auth {
+  &-group {
+    position: relative;
+    margin-bottom: 30px;
+  }
+
+  &-input {
+    font-size: 16px;
+    padding: 10px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &-label {
+    color: #999;
+    font-size: 18px;
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 15px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  &-input {
+    &:focus ~ .auth-label,
+    &:valid ~ .auth-label {
+      top: -15px;
+      font-size: 14px;
+      color: #5264AE;
+    }
+  }
+
+  &-bar {
+    position: relative;
+    display: block;
+    width: 320px;
+
+    &:before,
+    &:after {
+      content: '';
+      height: 2px;
+      width: 0;
+      bottom: 0;
+      position: absolute;
+      background: #5264AE;
+      transition: 0.2s ease all;
+      -moz-transition: 0.2s ease all;
+      -webkit-transition: 0.2s ease all;
+
+      &:before {
+        left: 50%;
+      }
+
+      &:after {
+        right: 50%;
+      }
+    }
+  }
+
+  &-button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: $primary;
+    border: none;
+    color: $white;
+    text-align: center;
+    font-size: 19px;
+    padding: 8px 20px;
+    max-width: 100px;
+    width: 100%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  &-button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  &-button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+
+  &-button:hover span {
+    padding-right: 25px;
+  }
+
+  &-button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+  &-input:focus ~ .auth-bar:before, ~ .auth-bar:after {
+    width: 50%;
+  }
+}
+

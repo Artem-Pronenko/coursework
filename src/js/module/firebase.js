@@ -44,7 +44,7 @@ export const addGoods = () => {
 }
 
 
-document.getElementById('addGoods').addEventListener('click', addGoods)
+//document.getElementById('addGoods').addEventListener('click', addGoods)
 // полчение товаров и сортировка по цене
 const getGoods = async goods => {
   try {
