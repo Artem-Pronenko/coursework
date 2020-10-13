@@ -1,5 +1,5 @@
-import * as firebase from "firebase/app"
-import "firebase/firestore"
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 import {RenderModal} from './RenderModal'
 
 const firebaseConfig = {
@@ -13,31 +13,12 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig)
-let db = firebase.firestore()
+const db = firebase.firestore()
 
 // функция добавления товаров в БД
-export const addGoods = () => {
+export const addGoodsDB = data => {
   db.collection('goo').doc()
-    .set({
-        props: {
-          fullName: "Пиво Балтика 9 8.1%",
-          img: {
-            back: "https://pivnoe-delo.info/wp-content/uploads//spetsial-no-dlya-potrebiteley-predpochitayushchikh-boleye-krepkiye-sorta-piva-byla-razrabotana-novinka-baltika-9-vishnevoye.png",
-            main: "https://pivnoe-delo.info/wp-content/uploads//spetsial-no-dlya-potrebiteley-predpochitayushchikh-boleye-krepkiye-sorta-piva-byla-razrabotana-novinka-baltika-9-vishnevoye.png"
-          },
-          mainName: "Пиво Балтика 9",
-          name: ["Пиво", "Пивас", "Балтика", "Балтика 9"],
-          price: 250,
-          shop: "rakozetka",
-          specifications: {
-            s1: 'Сорт: Ячменное',
-            s2: 'Спирт 8.1%',
-          },
-          info: 'Класическое порошковое пиво Балтика. Обладает нереальным вкусом. 8.1% спирта.',
-          type: "beer"
-        },
-      }
-    )
+    .set(data)
     .then(() => console.log('Товар добавлен'))
     .catch(err => console.error("Error adding document: ", err))
 
@@ -51,7 +32,7 @@ const getGoods = async goods => {
     const res = await db.collection(`goo`)
       .orderBy('props.price', 'desc')
       .get()
-    outDoc(res, goods)
+    productNameFilter(res, goods)
   } catch (e) {
     throw new Error(e)
   }
@@ -60,8 +41,8 @@ const getGoods = async goods => {
 
 const render = new RenderModal()
 
-const outDoc = (data, goods) => {
-  let dataGoods = []
+const productNameFilter = (data, goods) => {
+  const dataGoods = []
   data.forEach(doc => {
     const {props} = doc.data()
     for (let i = 0; i < props.name.length; i++) {
