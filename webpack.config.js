@@ -26,6 +26,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+        exclude: /\/node_modules\/@firebase/
+      },
+      {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
