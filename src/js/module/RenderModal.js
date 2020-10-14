@@ -1,13 +1,15 @@
+import {renderInDocument} from './utils';
+
 export class RenderModal {
 
   filter(props) {
     if (props.length) { // проверка на ответ от БД
       const minPrice = props.reverse()[0] // массив товара по самой низкой цене
       const maxPrice = props[props.length - 1].price // максимальная цена товара
-      document.body.insertAdjacentHTML('beforeend', this.render(props, minPrice, maxPrice))
+      renderInDocument(this.render(props, minPrice, maxPrice))
       this.listener()
     } else {
-      document.body.insertAdjacentHTML('beforeend', this.renderError())
+      renderInDocument(this.renderError())
       this.listener()
     }
   }
@@ -213,6 +215,60 @@ export class RenderModal {
       </div>
     </article>
     `
+  }
+
+  static renderAutModal(email) {
+    if (!email) {
+      return `
+      <article class="article article-auth" id="modal-auth">
+        <div class="auth-modal-wrapper">
+          <div class="auth-modal">
+            <div class="auth-modal-head">
+              <h4 class="auth-modal-title">Войти в аккаунт</h4>
+              <a class="auth-modal-btn-close" id="modal-auth-close" href="#">&#10006;</a>
+            </div>
+            <div class="auth-modal-content">
+              <form id="auth-form">
+                <div class="auth-group">
+                  <input class="auth-input" type="text" id="auth-email" required>
+                  <span class="auth-bar"></span>
+                  <label class="floating-label" for="auth-email">Email</label>
+                </div>
+                <div class="auth-group">
+                  <input class="auth-input" type="text" id="auth-password" required>
+                  <span class="auth-bar"></span>
+                  <label class="floating-label" for="auth-password">Password</label>
+                </div>
+                <button class="auth-button"><span>Вход </span></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+    `
+    } else {
+      return `
+      <article class="article article-auth" id="modal-admin">
+        <div class="auth-modal-wrapper">
+          <div class="auth-modal">
+            <div class="auth-modal-head">
+              <h4 class="auth-modal-title">Добро пожаловать ${email}</h4>
+              <a class="auth-modal-btn-close" id="modal-admin-close" href="#">&#10006;</a>
+            </div>
+            <div class="auth-modal-content">
+              <button class="auth-button" id="log-out" style="max-width: 270px">
+                <span>Вход с аккаунта </span>
+              </button>
+              <button class="auth-button" id="added-goods" style="max-width: 270px">
+                <span>Добавить товар </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+    `
+    }
+
   }
 
   // слушатель событий ? запуск методов

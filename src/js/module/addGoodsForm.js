@@ -1,4 +1,5 @@
 import {addGoodsDB} from './firebase'
+import {destroyEl} from './utils'
 
 // форма добавления товаров
 export const addGoodsForm = () => {
@@ -43,10 +44,9 @@ export const addGoodsForm = () => {
 
   }
 
-  const destroy = () => goodsModal.remove()
 
 
-  addGoodsClose.addEventListener('click', destroy)
+  addGoodsClose.addEventListener('click', () => destroyEl(goodsModal))
   goodsModal.addEventListener('submit', submitForm)
 
 }
