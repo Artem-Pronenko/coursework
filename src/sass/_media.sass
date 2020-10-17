@@ -1,3 +1,13 @@
+@media (max-width: 1105px)
+  .header-search__input
+    width: 320px
+  .header-menu__main
+    margin-left: 5px
+  .header-nav__list
+    max-width: 290px
+    margin-left: 0
+    padding-left: 0
+
 @media (max-width: 992px)
   .header-search
     &__input
@@ -36,6 +46,10 @@
 @media (max-width: 768px)
   .header-search
     display: none
+  #auth-user, .header-nav__list > li > span
+    font-size: 11px
+  .header-nav__list
+    max-width: 240px
   .header-left
     justify-content: flex-start
   .header-menu__main
@@ -95,6 +109,14 @@
     font-size: 13px
   .shops-info-goods-footer
     min-width: 255px
+
+@media (max-width: 475px)
+  .header-nav
+    flex-direction: column
+    align-items: flex-start
+  .header-nav__list
+    max-width: 100%
+    margin: 0
 
 @media (max-width: 380px)
   .header-menu__main

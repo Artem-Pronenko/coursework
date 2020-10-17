@@ -203,12 +203,15 @@ export class RenderModal {
             </div>
           </div>
           <div class="added-specifications-group">
-            <div class="auth-group" id="specifications-goods-group">
-              <input value="Спирт: 7.3%" class="auth-input" type="text" id="specifications-goods" required>
-              <span class="auth-bar"></span>
-              <label class="floating-label" for="specifications-goods">Свойства товара*</label>
+            <div class="auth-group" data-specifications-goods-group>
+              <div>
+                <input value="" class="auth-input" type="text" data-specifications-goods required>
+                <span class="auth-bar"></span>
+                <label class="floating-label" for="specifications-goods">Свойства товара*</label>
+              </div>
+              
             </div>
-            <button class="added-goods-specification" id="added-specification">+</button>
+            <div role="button" class="added-goods-specification" id="added-specification">+</div>
           </div>
           <button class="added-goods-button auth-button"><span>Отправить </span></button>
         </form>
