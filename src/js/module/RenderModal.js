@@ -274,6 +274,30 @@ export class RenderModal {
 
   }
 
+  static renderWarning (title, warningText) {
+      return `
+        <article class="article article-auth" id="modal-warning">
+          <div class="auth-modal-wrapper open">
+            <div class="auth-modal">
+              <div class="auth-modal-head">
+                <h4 class="auth-modal-title">${title}</h4>
+              </div>
+              <div class="auth-modal-content" id="warning-content">
+                <h3>${warningText}</h3>
+                <button class="auth-button" id="warning-proceed" style="max-width: 220px">
+                  <span>Продолжить</span>
+                </button>
+                <br>
+                <button class="auth-button" id="warning-abolition" style="max-width: 220px">
+                  <span>Отмена</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `
+    }
+
   // слушатель событий ? запуск методов
   listener() {
     const goodsClose = document.querySelector('.goods-close')

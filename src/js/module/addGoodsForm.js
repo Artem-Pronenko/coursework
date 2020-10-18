@@ -1,5 +1,6 @@
 import {addGoodsDB} from './firebase'
-import {destroyEl} from './utils'
+import {destroyEl, renderInDocument} from './utils'
+import {RenderModal} from './RenderModal'
 
 // форма добавления товаров
 export const addGoodsForm = () => {
@@ -90,9 +91,28 @@ export const addGoodsForm = () => {
 
   }
 
+  const warningProceed = () => {
+    const allInput = document.querySelectorAll('.auth-input')
+    let strVal = ''
+    allInput.forEach(item => strVal += item.value)
+    if (!strVal.trim()) {
+      destroyEl(goodsModal)
+      return
+    }
+    renderInDocument(RenderModal.renderWarning('Внимание!', 'Данные будут потеряны!'))
+    const warningContent = document.getElementById('warning-content')
+    warningContent.addEventListener('click', ({target}) => {
+      if (target.closest('#warning-proceed')) {
+        destroyEl(goodsModal, document.getElementById('modal-warning'))
+      } else if (target.closest('#warning-abolition')) {
+        destroyEl(document.getElementById('modal-warning'))
+      }
+    })
+  }
+
 
   addedSpecificationGroup.addEventListener('click', addedFieldSpecification)
-  addGoodsClose.addEventListener('click', () => destroyEl(goodsModal))
+  addGoodsClose.addEventListener('click', warningProceed)
   goodsModal.addEventListener('submit', submitForm)
 
 }

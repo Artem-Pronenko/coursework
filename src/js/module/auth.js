@@ -6,6 +6,7 @@ import {authDisplayName, destroyEl, renderInDocument, sliceEmail} from './utils'
 
 // авторизация
 export const authModalShow = () => {
+  let authButton, authClose, modalWrapper, authForm
 
   const authListener = () => {
     firebase.auth().onAuthStateChanged(user => {
@@ -14,12 +15,22 @@ export const authModalShow = () => {
         authDisplayName(sliceEmail(email))
         modalAdmin(sliceEmail(email))
         const mAuth = document.getElementById('modal-auth')
-        mAuth && destroyEl(mAuth)
+        if (mAuth) {
+          authForm.removeEventListener('submit', authEmailAndPassword)
+          authButton.removeEventListener('click', toggleModal.bind(this, modalWrapper))
+          authClose.removeEventListener('click', toggleModal.bind(this, modalWrapper))
+          setTimeout(() => destroyEl(mAuth), 2000)
+        }
         console.log('вошел')
       } else {
         authDisplayName('anonymous')
         const mAuth = document.getElementById('modal-auth')
-        mAuth && setTimeout(destroyEl(mAuth), 2000)
+        if (mAuth) {
+          authForm.removeEventListener('submit', authEmailAndPassword)
+          authButton.removeEventListener('click', toggleModal.bind(this, modalWrapper))
+          authClose.removeEventListener('click', toggleModal.bind(this, modalWrapper))
+          destroyEl(mAuth)
+        }
         modalAuth()
         console.log('вышел')
       }
@@ -30,10 +41,10 @@ export const authModalShow = () => {
 
   const modalAuth = () => {
     renderInDocument(RenderModal.renderAutModal(null))
-    const authButton = document.getElementById('authButton')
-    const authClose = document.getElementById('modal-auth-close')
-    const modalWrapper = document.querySelector('#modal-auth > .auth-modal-wrapper')
-    const authForm = document.getElementById('auth-form')
+    authButton = document.getElementById('authButton')
+    authClose = document.getElementById('modal-auth-close')
+    modalWrapper = document.querySelector('#modal-auth > .auth-modal-wrapper')
+    authForm = document.getElementById('auth-form')
 
     authForm.addEventListener('submit', authEmailAndPassword)
     authButton.addEventListener('click', toggleModal.bind(this, modalWrapper))
