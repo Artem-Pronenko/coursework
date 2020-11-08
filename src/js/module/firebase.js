@@ -24,10 +24,8 @@ export const addGoodsDB = data => {
 
 }
 
-
-//document.getElementById('addGoods').addEventListener('click', addGoods)
 // полчение товаров и сортировка по цене
-const getGoods = async goods => {
+export const getGoods = async goods => {
   try {
     const res = await db.collection(`goo`)
       .orderBy('props.price', 'desc')
@@ -54,15 +52,3 @@ const productNameFilter = (data, goods) => {
   })
   render.filter(dataGoods)
 }
-
-
-const btn = document.getElementById('main-search-button')
-
-btn.addEventListener('click', e => {
-  e.preventDefault()
-  btn.disabled = true
-  const searchInputValue = document.getElementById('main-search').value
-  getGoods(searchInputValue.toLowerCase().split(' ').filter(i => i).join(' '))
-    .then(() => btn.disabled = false)
-
-})
