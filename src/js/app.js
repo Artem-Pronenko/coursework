@@ -22,7 +22,7 @@ const slider = new Slider(
   // настройки по желанию
   {
     autoplay: {
-      interval: 5000
+      interval: 10000
     },
     startSlide: 2
   }
