@@ -27,16 +27,7 @@ const sort = async () => {
   let map
 
   const sortCheap = (arr) => {
-    for (let i = 0; i < arr.length - 1; i++) {
-      for (let j = 0; j < arr.length - 1 - i; j++) {
-        if (arr[j + 1].textContent < arr[j].textContent) {
-          let t = arr[j + 1]
-          arr[j + 1].textContent = arr[j].textContent
-          arr[j].textContent = t
-        }
-      }
-    }
-    return arr
+   return [...arr].sort((a, b) => a.textContent - b.textContent)
   }
 
   ymaps.ready(() => {

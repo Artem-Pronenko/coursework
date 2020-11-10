@@ -30,7 +30,7 @@ export class RenderModal {
         <h3 class="article-title"><span>${mainName}</span></h3>
         <div class="goods-card">
           <div class="goods-card__img">
-            <img src="${minPrice.img.main}" alt="image: phone">
+            <img src="${minPrice.img}" alt="image: goods">
             <span class="goods-card__title">${fullName}</span>
             <div class="goods-card__star">
               <img src="img/star-gold.png" alt="icon: gold star">
@@ -84,7 +84,7 @@ export class RenderModal {
       /*рендер всех карточек товара из разных магазинов*/
       `<div class="shops shops_mb" data-location="${item.location}">
         <div class="shops-logo">
-          <img src="img/shop-logo.png" alt="image: shop logo">
+          <img src="${item.shopImg}" alt="shop logo">
         </div>
         <div class="title-shop">${item.shop}</div>
           <div class="shops-info-goods">
@@ -125,12 +125,12 @@ export class RenderModal {
         <form class="added-goods-form" id="added-goods-form">
           <div class="added-group-line">
             <div class="auth-group">
-              <input value="Пиво Оболонь 7.3%" class="auth-input" type="text" id="full-name" required maxlength="30">
+              <input value="Пиво Оболонь 7.3%" class="auth-input" type="text" id="full-name" required maxlength="35">
               <span class="auth-bar"></span>
               <label class="floating-label" for="full-name">Полное имя товара*</label>
             </div>
             <div class="auth-group">
-              <input value="Пиво Оболонь" class="auth-input" type="text" id="main-name" required maxlength="20">
+              <input value="Пиво Оболонь" class="auth-input" type="text" id="main-name" required maxlength="25">
               <span class="auth-bar"></span>
               <label class="floating-label" for="main-name">Краткое имя товара*</label>
             </div>
@@ -149,7 +149,7 @@ export class RenderModal {
           </div>
           <div class="added-group-line">
             <div class="auth-group">
-              <input value="zaraza" class="auth-input" type="text" id="shop-goods" required maxlength="15">
+              <input value="" class="auth-input" type="text" id="shop-goods" required maxlength="15">
               <span class="auth-bar"></span>
               <label class="floating-label" for="shop-goods">Магазин поставщика*</label>
             </div>
@@ -159,6 +159,20 @@ export class RenderModal {
               <label class="floating-label" for="info-goods">Описание товара*</label>
             </div>
           </div>
+          
+          <div class="added-group-line">
+            <div class="auth-group">
+              <input class="auth-input" type="text" id="goods-img" required maxlength="350">
+              <span class="auth-bar"></span>
+              <label class="floating-label" for="shop-goods">Ссылка на изображение товара*</label>
+            </div>
+            <div class="auth-group">
+              <input class="auth-input" type="text" id="shop-img" required maxlength="350">
+              <span class="auth-bar"></span>
+              <label class="floating-label" for="shop-goods">Ссылка на изображение магазина*</label>
+            </div>
+          </div>
+          
           <div class="added-group-line">
             <div class="auth-group">
               <input value="beer" class="auth-input" type="text" id="type-goods" required maxlength="10">
@@ -166,6 +180,11 @@ export class RenderModal {
               <label class="floating-label" for="type-goods">Тип товара на Английском*</label>
             </div>
             <div class="auth-group">
+              <input class="auth-input" type="text" id="shop-location" required maxlength="200">
+              <span class="auth-bar"></span>
+              <label class="floating-label" for="shop-goods">Местоположение магазина</label>
+            </div>
+            <!--<div class="auth-group">
               <div class="input__wrapper">
                 <input type="file" name="file" id="input__file" class="input input__file" multiple>
                 <label for="input__file" class="input__file-button">
@@ -175,7 +194,8 @@ export class RenderModal {
                   <span class="input__file-button-text">Выберите файл</span>
                 </label>
               </div>
-            </div>
+            </div>-->
+            
           </div>
           <div class="added-specifications-group">
             <div class="auth-group" data-specifications-goods-group>
@@ -235,7 +255,7 @@ export class RenderModal {
             </div>
             <div class="auth-modal-content">
               <button class="auth-button" id="log-out" style="max-width: 270px">
-                <span>Вход с аккаунта </span>
+                <span>Выход с аккаунта </span>
               </button>
               <button class="auth-button" id="added-goods" style="max-width: 270px">
                 <span>Добавить товар </span>

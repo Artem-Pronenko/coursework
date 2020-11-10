@@ -9,9 +9,9 @@ import {search} from './module/search'
 export const getUserLocation = async () => {
   const res = await fetch('http://api.sypexgeo.net/json/')
   const data = await res.json()
-  const userLocationLat = data.city.lat1 || '49.59373'
-  const userLocationLon = data.city.lon1 || '34.54073'
-  const userLocationCity = data.city.name_ru1 || 'Полтава'
+  const userLocationLat = data.city.lat || '49.59373'
+  const userLocationLon = data.city.lon || '34.54073'
+  const userLocationCity = data.city.name_ru || 'Полтава'
   return {
     userLocationCity,
     userLocationLat,

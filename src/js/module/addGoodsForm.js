@@ -55,6 +55,9 @@ export const addGoodsForm = () => {
       const shopGoods = target.querySelector('#shop-goods').value
       const infoGoods = target.querySelector('#info-goods').value
       const typeGoods = target.querySelector('#type-goods').value
+      const shopImg = target.querySelector('#shop-img').value
+      const location = target.querySelector('#shop-location').value
+      const goodsImg = target.querySelector('#goods-img').value
       const specificationsGoods = target.querySelectorAll('[data-specifications-goods]')
       const dataSpecifications = {}
       const arrName = []
@@ -71,16 +74,16 @@ export const addGoodsForm = () => {
       const data = {
         props: {
           fullName: fullName,
-          img: {
-            main: 'https://pivnoe-delo.info/wp-content/uploads//spetsial-no-dlya-potrebiteley-predpochitayushchikh-boleye-krepkiye-sorta-piva-byla-razrabotana-novinka-baltika-9-vishnevoye.png'
-          },
-          mainName: mainName,
+          img: goodsImg,
+          mainName,
           name: arrName,
-          price: priceGoods,
+          price: +priceGoods,
           shop: shopGoods,
           specifications: dataSpecifications,
           info: infoGoods,
-          type: typeGoods
+          type: typeGoods,
+          shopImg,
+          location
         },
       }
 
