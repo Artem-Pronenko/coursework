@@ -5,6 +5,25 @@ import './module/firebase'
 import {authModalShow} from './module/auth'
 import {search} from './module/search'
 
+
+export const getUserLocation = async () => {
+  const res = await fetch('http://api.sypexgeo.net/json/')
+  const data = await res.json()
+  const userLocationLat = data.city.lat1 || '49.59373'
+  const userLocationLon = data.city.lon1 || '34.54073'
+  const userLocationCity = data.city.name_ru1 || 'Полтава'
+  return {
+    userLocationCity,
+    userLocationLat,
+    userLocationLon
+  }
+}
+getUserLocation().then(location => {
+  document
+    .querySelectorAll('.location-user')
+    .forEach(item => item.textContent = location.userLocationCity)
+})
+
 document.addEventListener('DOMContentLoaded', () => {
   const searchForms = document.querySelectorAll('.search-forms')
 
@@ -13,16 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
       search(e, form)
     })
   })
-
-  const userPozSuccess = async () => {
-    const res = await fetch('http://api.sypexgeo.net/json/')
-    const data = await res.json()
-    const userLocation = data.city.name_ruq || 'Полтава'
-    document
-      .querySelectorAll('.location-user')
-      .forEach(item => item.textContent = userLocation)
-  }
-  userPozSuccess()
 
   const slider = new Slider(
     // 2 обязательных параметра

@@ -1,41 +1,15 @@
-import {renderInDocument} from './utils';
-
 export class RenderModal {
 
-  filter(props) {
-    if (props.length) { // проверка на ответ от БД
-      const minPrice = props.reverse()[0] // массив товара по самой низкой цене
-      const maxPrice = props[props.length - 1].price // максимальная цена товара
-      renderInDocument(this.render(props, minPrice, maxPrice))
-      this.listener()
-    } else {
-      renderInDocument(this.renderError())
-      this.listener()
-    }
-  }
-
   // удаление модального окна с товарами
-  destroy() {
+  static destroy() {
     document.getElementById('search-goods-modal').remove()
   }
 
-  // сортировка карточек товара
-  sort() {
-    const shopsWrap = document.querySelector('.shops-wrapper')
-    const shopsReverse = [...shopsWrap.querySelectorAll('.shops ')].reverse()
-    const shops = [...shopsWrap.querySelectorAll('.shops ')]
-    for (let i = 0; i < shops.length; i++) {
-      shops[i].remove()
-    }
-    shopsWrap.append(...shopsReverse)
-
-  }
-
   // рендер смс ошибки если товар не найден
-  renderError() {
+  static renderError() {
     return `
-      <article class="article goods-bg">
-        <button class="goods-close">&#10006;</button>
+      <article class="article search-err-bg">
+        <button class="goods-close article-close">&#10006;</button>
         <div class="goods-container">
           <h3 class="goods-title"><span>Упс. Такого товара нет!</span></h3>
           <hr>
@@ -46,7 +20,7 @@ export class RenderModal {
   }
 
   // рендер мадального окна с товарами
-  render(data, minPrice, maxPrice) {
+  static renderModalGoods(data, minPrice, maxPrice) {
     const {mainName, fullName, price, specifications, info} = minPrice
 
     return `
@@ -97,6 +71,7 @@ export class RenderModal {
               <select id="sort">
                 <option value="cheap">Сначала дешовые</option>
                 <option value="expensive">Сначала дорогие</option>
+                <option value="nearer">Ближе ко мне</option>
               </select>
             </label>
           </div>
@@ -107,32 +82,32 @@ export class RenderModal {
         <div class="shops-wrapper">
        ${data.map(item =>
       /*рендер всех карточек товара из разных магазинов*/
-      `<div class="shops shops_mb">
-            <div class="shops-logo">
-              <img src="img/shop-logo.png" alt="image: shop logo">
-            </div>
-            <div class="title-shop">${item.shop}</div>
-            <div class="shops-info-goods">
-              <h4 class="shops-info-goods__title">${item.mainName}
-                <sup class="primary b-fs">${item.price}</sup><sup>грн</sup>
-              </h4>
-              <div class="shops-info-goods-footer">
-                <div class="shops-info-rating">
-                  <span class="shops-info-rating__text">Рейтинг:</span>
-                  <div class="shops-info-star">
-                    <img src="img/star-gold.png" alt="icon: gold star">
-                    <img src="img/star-gold.png" alt="icon: gold star">
-                    <img src="img/star-gold.png" alt="icon: gold star">
-                    <img src="img/star-black.png" alt="icon: gold black">
-                    <img src="img/star-black.png" alt="icon: gold black">
-                  </div>
-                </div>
-                <button class="shops-open">В магазин</button>
-              </div>
-            </div>
-          </div>`).join('')}
+      `<div class="shops shops_mb" data-location="${item.location}">
+        <div class="shops-logo">
+          <img src="img/shop-logo.png" alt="image: shop logo">
         </div>
+        <div class="title-shop">${item.shop}</div>
+          <div class="shops-info-goods">
+            <h4 class="shops-info-goods__title">${item.mainName}
+              <sup class="primary b-fs price-card">${item.price}</sup><sup>грн</sup>
+            </h4>
+            <div class="shops-info-goods-footer">
+              <div class="shops-info-rating">
+                <span class="shops-info-rating__text">Рейтинг:</span>
+                <div class="shops-info-star">
+                  <img src="img/star-gold.png" alt="icon: gold star">
+                  <img src="img/star-gold.png" alt="icon: gold star">
+                  <img src="img/star-gold.png" alt="icon: gold star">
+                  <img src="img/star-black.png" alt="icon: gold black">
+                  <img src="img/star-black.png" alt="icon: gold black">
+                </div>
+              </div>
+              <button class="shops-open">В магазин</button>
+            </div>
+          </div>
+        </div>`).join('')}
       </div>
+    </div>
     </article>
     `
   }
@@ -274,8 +249,8 @@ export class RenderModal {
 
   }
 
-  static renderWarning (title, warningText) {
-      return `
+  static renderWarning(title, warningText) {
+    return `
         <article class="article article-auth" id="modal-warning">
           <div class="auth-modal-wrapper open">
             <div class="auth-modal">
@@ -296,13 +271,6 @@ export class RenderModal {
           </div>
         </article>
       `
-    }
-
-  // слушатель событий ? запуск методов
-  listener() {
-    const goodsClose = document.querySelector('.goods-close')
-    document.getElementById('sort')
-    && document.getElementById('sort').addEventListener('change', this.sort)
-    goodsClose.addEventListener('click', this.destroy)
   }
+
 }

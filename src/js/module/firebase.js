@@ -1,6 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import {RenderModal} from './RenderModal'
+import {filter} from './sortGoods'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBmrFlz3jYKxOModg8V5CQu_NmfO18tUn0",
@@ -37,8 +37,6 @@ export const getGoods = async goods => {
 
 }
 
-const render = new RenderModal()
-
 const productNameFilter = (data, goods) => {
   const dataGoods = []
   data.forEach(doc => {
@@ -50,5 +48,5 @@ const productNameFilter = (data, goods) => {
     }
 
   })
-  render.filter(dataGoods)
+  filter(dataGoods)
 }
