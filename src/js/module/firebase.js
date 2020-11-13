@@ -1,6 +1,8 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import {filter} from './sortGoods'
+import {RenderModal} from "./RenderModal";
+import {destroyEl, renderInDocument} from "./utils";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBmrFlz3jYKxOModg8V5CQu_NmfO18tUn0",
@@ -19,34 +21,40 @@ const db = firebase.firestore()
 export const addGoodsDB = data => {
   db.collection('goo').doc()
     .set(data)
-    .then(() => console.log('Товар добавлен'))
+    .then(() => {
+      renderInDocument(RenderModal.renderWarning('Успех!', 'Товар успешно добавлен!', false))
+      setTimeout(() => destroyEl(document.getElementById('modal-warning')), 2500)
+    })
     .catch(err => console.error("Error adding document: ", err))
 
 }
 
 // полчение товаров и сортировка по цене
-export const getGoods = async goods => {
+export const getGoods = async (goods, type) => {
   try {
     const res = await db.collection(`goo`)
       .orderBy('props.price', 'desc')
       .get()
-    productNameFilter(res, goods)
+    productNameFilter(res, goods, type)
   } catch (e) {
     throw new Error(e)
   }
 
 }
 
-const productNameFilter = (data, goods) => {
+const productNameFilter = (data, goods, type = false) => {
   const dataGoods = []
   data.forEach(doc => {
     const {props} = doc.data()
-    for (let i = 0; i < props.name.length; i++) {
-      if (props.name[i].toLowerCase() === goods) {
-        dataGoods.push(props)
+    if (type) {
+      props.type.toLowerCase() === goods && dataGoods.push(props)
+    } else {
+      for (let i = 0; i < props.name.length; i++) {
+        if (props.name[i].toLowerCase() === goods) {
+          dataGoods.push(props)
+        }
       }
     }
-
   })
   filter(dataGoods)
 }

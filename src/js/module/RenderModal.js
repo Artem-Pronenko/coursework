@@ -125,36 +125,36 @@ export class RenderModal {
         <form class="added-goods-form" id="added-goods-form">
           <div class="added-group-line">
             <div class="auth-group">
-              <input value="Пиво Оболонь 7.3%" class="auth-input" type="text" id="full-name" required maxlength="35">
+              <input class="auth-input" type="text" id="full-name" required maxlength="45">
               <span class="auth-bar"></span>
               <label class="floating-label" for="full-name">Полное имя товара*</label>
             </div>
             <div class="auth-group">
-              <input value="Пиво Оболонь" class="auth-input" type="text" id="main-name" required maxlength="25">
+              <input class="auth-input" type="text" id="main-name" required maxlength="30">
               <span class="auth-bar"></span>
               <label class="floating-label" for="main-name">Краткое имя товара*</label>
             </div>
           </div>
           <div class="added-group-line">
             <div class="auth-group">
-              <input value="Оболонь" class="auth-input" type="text" id="arr-name" required maxlength="40">
+              <input class="auth-input" type="text" id="arr-name" required maxlength="90">
               <span class="auth-bar"></span>
               <label class="floating-label" for="arr-name">Перечислите имена товара через ','*</label>
             </div>
             <div class="auth-group">
-              <input value="100" class="auth-input" type="number" id="price-goods" required>
+              <input class="auth-input" type="number" id="price-goods" required>
               <span class="auth-bar"></span>
               <label class="floating-label" for="price-goods">Цена товара грн*</label>
             </div>
           </div>
           <div class="added-group-line">
             <div class="auth-group">
-              <input value="" class="auth-input" type="text" id="shop-goods" required maxlength="15">
+              <input class="auth-input" type="text" id="shop-goods" required maxlength="15">
               <span class="auth-bar"></span>
               <label class="floating-label" for="shop-goods">Магазин поставщика*</label>
             </div>
             <div class="auth-group">
-              <input value="Нереально прет" class="auth-input" type="text" id="info-goods" required maxlength="300">
+              <input class="auth-input" type="text" id="info-goods" required maxlength="450">
               <span class="auth-bar"></span>
               <label class="floating-label" for="info-goods">Описание товара*</label>
             </div>
@@ -175,7 +175,7 @@ export class RenderModal {
           
           <div class="added-group-line">
             <div class="auth-group">
-              <input value="beer" class="auth-input" type="text" id="type-goods" required maxlength="10">
+              <input class="auth-input" type="text" id="type-goods" required maxlength="10">
               <span class="auth-bar"></span>
               <label class="floating-label" for="type-goods">Тип товара на Английском*</label>
             </div>
@@ -269,7 +269,7 @@ export class RenderModal {
 
   }
 
-  static renderWarning(title, warningText) {
+  static renderWarning(title, warningText, warning = true) {
     return `
         <article class="article article-auth" id="modal-warning">
           <div class="auth-modal-wrapper open">
@@ -279,13 +279,15 @@ export class RenderModal {
               </div>
               <div class="auth-modal-content" id="warning-content">
                 <h3>${warningText}</h3>
-                <button class="auth-button" id="warning-proceed" style="max-width: 220px">
-                  <span>Продолжить</span>
-                </button>
-                <br>
-                <button class="auth-button" id="warning-abolition" style="max-width: 220px">
-                  <span>Отмена</span>
-                </button>
+                ${(() => warning ? `
+                  <button class="auth-button" id="warning-proceed" style="max-width: 220px">
+                    <span>Продолжить</span>
+                  </button>
+                  <br>
+                  <button class="auth-button" id="warning-abolition" style="max-width: 220px">
+                    <span>Отмена</span>
+                  </button>
+                ` : '')()}
               </div>
             </div>
           </div>

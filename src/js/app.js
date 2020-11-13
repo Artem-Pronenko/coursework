@@ -11,7 +11,7 @@ export const getUserLocation = async () => {
   const data = await res.json()
   const userLocationLat = data.city.lat || '49.59373'
   const userLocationLon = data.city.lon || '34.54073'
-  const userLocationCity = data.city.name_ru || 'Полтава'
+  const userLocationCity = data.city.name_ru || 'Неопределено'
   return {
     userLocationCity,
     userLocationLat,
