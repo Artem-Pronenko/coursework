@@ -9,19 +9,31 @@ import {search} from './module/search'
 export const getUserLocation = async () => {
   const res = await fetch('https://api.sypexgeo.net/json/')
   const data = await res.json()
-  const userLocationLat = data.city.lat || '49.59373'
-  const userLocationLon = data.city.lon || '34.54073'
+  const lat = data.city.lat || '49.59373'
+  const lng = data.city.lon || '34.54073'
   const userLocationCity = data.city.name_ru || 'Неопределено'
   return {
     userLocationCity,
-    userLocationLat,
-    userLocationLon
+    lat,
+    lng
   }
 }
 getUserLocation().then(location => {
+  const {lat, lng} = location
+  const script = document.createElement('script')
   document
     .querySelectorAll('.location-user')
     .forEach(item => item.textContent = location.userLocationCity)
+
+  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBmrFlz3jYKxOModg8V5CQu_NmfO18tUn0&callback=initMap'
+  script.defer = true
+  window.initMap = function () {
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: {lat, lng},
+    })
+  }
+  document.head.appendChild(script)
 })
 
 document.addEventListener('DOMContentLoaded', () => {

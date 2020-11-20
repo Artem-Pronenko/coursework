@@ -21,28 +21,31 @@ export const filter = props => {
 
 
 const sort = async () => {
+  const location = await getUserLocation()
   const sortSelect = document.getElementById('sort')
   const shopsWrap = document.querySelector('.shops-wrapper')
   const allShops = shopsWrap.querySelectorAll('.price-card')
-  let map
-
-  const sortCheap = (arr) => {
-   return [...arr].sort((a, b) => a.textContent - b.textContent)
-  }
-
-  ymaps.ready(() => {
-    const mapCenter = [55.76, 37.64]
-    map = new ymaps.Map('map', {center: mapCenter, zoom: 10})
-  })
-
-  const location = await getUserLocation()
-  const A = `${location.userLocationLat}, ${location.userLocationLon}`
+  const {lat, lng} = location
+  const start = `${lat}, ${lng}`
+  const directionsService = new google.maps.DirectionsService()
   const card = document.querySelectorAll('[data-location]')
-  await card.forEach(item => {
-    ymaps.route([A, item.dataset.location]).then(route => {
-      const distance = route.getHumanLength()
-      map.geoObjects.add(route)
-      item.dataset.loc = distance.replace(/&#.+/, '')
+
+  const sortCheap = (arr) => [...arr].sort((a, b) => a.textContent - b.textContent)
+
+  card.forEach(item => {
+    const end = item.dataset.location
+    var request = {
+      origin: start,
+      destination: end,
+      travelMode: 'WALKING'
+    }
+    directionsService.route(request, (result, status) => {
+      if (status === 'OK') {
+        const myRoute = result.routes[0].legs[0];
+        item.dataset.loc = myRoute.distance.value
+      } else {
+        console.error(status)
+      }
     })
   })
 
