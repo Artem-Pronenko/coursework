@@ -32,6 +32,8 @@ getUserLocation().then(location => {
       zoom: 10,
       center: {lat, lng},
     })
+    const directionsRenderer = new google.maps.DirectionsRenderer()
+    directionsRenderer.setMap(map);
   }
   document.head.appendChild(script)
 })

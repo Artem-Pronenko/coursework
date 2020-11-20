@@ -27,25 +27,49 @@ const sort = async () => {
   const allShops = shopsWrap.querySelectorAll('.price-card')
   const {lat, lng} = location
   const start = `${lat}, ${lng}`
+  const $map = document.getElementById('map')
+  const map = new google.maps.Map($map)
   const directionsService = new google.maps.DirectionsService()
+  const directionsRenderer = new google.maps.DirectionsRenderer()
   const card = document.querySelectorAll('[data-location]')
+  const mapOpen = document.querySelectorAll('.map-open')
+  directionsRenderer.setMap(map)
 
   const sortCheap = (arr) => [...arr].sort((a, b) => a.textContent - b.textContent)
 
   card.forEach(item => {
-    const end = item.dataset.location
-    var request = {
-      origin: start,
-      destination: end,
-      travelMode: 'WALKING'
-    }
-    directionsService.route(request, (result, status) => {
-      if (status === 'OK') {
-        const myRoute = result.routes[0].legs[0];
-        item.dataset.loc = myRoute.distance.value
-      } else {
-        console.error(status)
+      const end = item.dataset.location
+      const request = {
+        origin: start,
+        destination: end,
+        travelMode: 'WALKING'
       }
+      directionsService.route(request, (result, status) => {
+        status === 'OK'
+          ? item.dataset.loc = result.routes[0].legs[0].distance.value
+          : console.error(status)
+      })
+    }
+  )
+
+  mapOpen.forEach(item => {
+    item.addEventListener('click', () => {
+      const locShop = item.closest('[data-location]').dataset.location
+      const request = {
+        origin: start,
+        destination: locShop,
+        travelMode: 'WALKING'
+      }
+      directionsService.route(request, (result, status) => {
+        if (status === 'OK') {
+          directionsRenderer.setDirections(result)
+          $map.classList.remove('hide')
+          RenderModal.destroy()
+          window.scrollTo(0, document.body.scrollHeight)
+        } else {
+          console.error(status)
+        }
+      })
     })
   })
 

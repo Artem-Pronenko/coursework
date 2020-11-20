@@ -103,6 +103,7 @@ export class RenderModal {
                 </div>
               </div>
               <button class="shops-open">В магазин</button>
+              <button class="map-open">Показать на карте</button>
             </div>
           </div>
         </div>`).join('')}
